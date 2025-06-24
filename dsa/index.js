@@ -1,31 +1,52 @@
-const game = {
-  team1: 'Bayern Munich',
-  team2: 'Borrussia Dortmund',
-  players: [
-    ['Neuer', 'Davies',  'Kimmich','Coman',  'Muller','Gnarby', 'Lewandowski','Pavard',  'Martinez','Alaba',  'Goretzka', ],
-    ['Burki','Witsel','Sancho',  'Gotze','Brandt',  'Hazard','Schulz','Hakimi', 'Weigl','Hummels','Akanji',],
-  ],
-  score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-  date: 'Nov 9th, 2037',
-  odds: {
-    team1: 1.33,
-    x: 3.25,
-    team2: 6.5,
-  },
-};
-
-for(const [i, player] of game.scored.entries()) {
-   // console.log(`Goal ${i + 1}: ${player}`);
+//Call method 
+const flights = { // Parent or common function
+    name: '',
+    airline: '',
+    iataCode:'',
+    book(flightName, name) {
+        console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightName}`)
+    }
 }
 
-let average = 0;
-for (const odd of Object.values(game.odds)) 
-    average += odd;
-    average /= Object.values(game.odds).length
-  //  console.log(average);
-
-for(const [team, odd] of Object.entries(game.odds)) {
-    const teamStr = team === 'x'?'Draw':'Victory' + game[team];
-    console.log(`Odd of ${teamStr} ${odd}`)
+const lufthansa = {
+    airline: 'Lufthansa',
+    name: 'Lufthansa',
+    iataCode: 'LH',
+    bookings: [],
 }
+
+const eurowings = {
+    airline: 'euro',
+    name: 'Eurowings',
+    iataCode: 'EW',
+    bookings: [],
+}
+
+const swiss = {
+    airline: 'Swiss',
+    name: 'Swiss',
+    iataCode: 'SW',
+    bookings: [],
+}
+
+// call functions +++++
+// <FUNCTION>.call(thisFn, arr1,arr2, .....)
+flights.book.call(
+    eurowings // The value you want to use as "this"
+    ,23,'Hitesh' // arguments 
+)
+flights.book.call(
+    swiss // The value you want to use as "this"
+    ,23,'Saara' // arguments 
+)
+flights.book.call(lufthansa, 25, 'Jao')
+
+//  Argument pass under array in apply method
+// <FUNCTION>.apply(thisFn, [arr1,arr2, .....])
+flights.book.apply(swiss, [35, 'Other booking swiss'])
+const person = [30, 'Binding name'];
+
+// <FUNCTION>.bind(thisFn, arr1,arr2, .....)
+// it return the function values
+const bindFlight = flights.book.bind(swiss,...person)
+bindFlight()
