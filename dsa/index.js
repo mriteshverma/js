@@ -15,23 +15,17 @@ const game = {
   },
 };
 
-const [players1, players2] = game.players;
-const [gk, ...fieldplayers] = players1;
-const allPlayers = [...players1, ...players2];
-
-const players1final = [...players1, 'Thiago', 'Coutino','Perisic'];
-
-// Both statements are same below
-// const {team1, draw, team2} = game.odds;
-const {odds: {team1, x: draw, team2}} = game;
-//console.log(team1, draw, team2);
-
-const printGoals = function(...players) {
-    console.log(`${players.length} goals were scored.`)
+for(const [i, player] of game.scored.entries()) {
+   // console.log(`Goal ${i + 1}: ${player}`);
 }
 
-printGoals('Davis', 'Muller','Lewando','Kimmich')
-printGoals('Davis', 'Muller')
-printGoals(...game.scored);
-team1 < team2 && console.log('Team 1 is more likely to win') 
-team1 > team2 && console.log('Team 2 is more likely to win') 
+let average = 0;
+for (const odd of Object.values(game.odds)) 
+    average += odd;
+    average /= Object.values(game.odds).length
+  //  console.log(average);
+
+for(const [team, odd] of Object.entries(game.odds)) {
+    const teamStr = team === 'x'?'Draw':'Victory' + game[team];
+    console.log(`Odd of ${teamStr} ${odd}`)
+}
